@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steam Reviews Dashboard - Análise de Sentimentos</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Steam Reviews Dashboard</h1>
+            <p class="subtitle">Análise de Sentimentos e Estatísticas</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <button id="btn-overview" class="nav-btn active">Visão Geral</button>
+            <button id="btn-reviews" class="nav-btn">Reviews</button>
+            <button id="btn-sentiment" class="nav-btn">Análise de Sentimento</button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section id="screen-overview" class="screen active">
+            <h2>Visão Geral do Sistema</h2>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Total de Reviews</h3>
+                    <p class="stat-value" id="total-reviews">-</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Score Médio</h3>
+                    <p class="stat-value" id="avg-score">-</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Reviews Positivos</h3>
+                    <p class="stat-value" id="positive-reviews">-</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Reviews Negativos</h3>
+                    <p class="stat-value" id="negative-reviews">-</p>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h3>Distribuição de Scores</h3>
+                <canvas id="score-chart"></canvas>
+            </div>
+
+            <div class="chart-container">
+                <h3>Positivos vs Negativos</h3>
+                <canvas id="sentiment-pie"></canvas>
+            </div>
+
+            <div class="flow-diagram">
+                <h3>Fluxo de Dados</h3>
+                <div class="flow-steps">
+                    <div class="flow-step">
+                        <div class="flow-icon">🗄️</div>
+                        <h4>Banco de Dados</h4>
+                        <p>PostgreSQL com reviews da Steam</p>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">
+                        <div class="flow-icon">⚡</div>
+                        <h4>API FastAPI</h4>
+                        <p>Endpoints REST + modelo IA</p>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">
+                        <div class="flow-icon">🌐</div>
+                        <h4>Front-end</h4>
+                        <p>Dashboard interativo</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="screen-reviews" class="screen">
+            <h2>Explorar Reviews</h2>
+
+            <div class="filters">
+                <div class="filter-group">
+                    <label for="filter-score">Score:</label>
+                    <select id="filter-score">
+                        <option value="">Todos</option>
+                        <option value="1">1</option>
+                        <option value="0">0</option>
+                        <option value="-1">-1</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="filter-limit">Limite:</label>
+                    <select id="filter-limit">
+                        <option value="10">10</option>
+                        <option value="25" selected>25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </div>
+
+                <button id="btn-load-reviews" class="btn-primary">Carregar Reviews</button>
+            </div>
+
+            <div id="reviews-loading" class="loading hidden">
+                <div class="spinner"></div>
+                <p>Carregando reviews...</p>
+            </div>
+
+            <div id="reviews-container"></div>
+        </section>
+
+        <section id="screen-sentiment" class="screen">
+            <h2>Análise de Sentimento com IA</h2>
+
+            <div class="sentiment-test">
+                <h3>Testar Modelo Naive Bayes</h3>
+                <p class="info-text">Digite um texto de review para analisar o sentimento previsto pelo modelo treinado:</p>
+
+                <textarea
+                    id="sentiment-input"
+                    placeholder="Ex: This game is amazing! Great graphics and gameplay."
+                    rows="5"
+                ></textarea>
+
+                <button id="btn-analyze" class="btn-primary">Analisar Sentimento</button>
+
+                <div id="sentiment-result" class="sentiment-result hidden">
+                    <h4>Resultado da Análise:</h4>
+                    <div class="result-content">
+                        <div class="result-item">
+                            <span class="result-label">Sentimento Previsto:</span>
+                            <span id="predicted-sentiment" class="result-value"></span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Confiança:</span>
+                            <span id="confidence-score" class="result-value"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="model-info">
+                <h3>Sobre o Modelo</h3>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h4>Algoritmo</h4>
+                        <p>Naive Bayes Multinomial</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Features</h4>
+                        <p>TF-IDF Vectorization</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Dataset</h4>
+                        <p>Steam Reviews</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Classes</h4>
+                        <p>Positivo / Neutro / Negativo</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Steam Reviews Dashboard - Projeto Acadêmico - Seminário de Banco de Dados</p>
+        </div>
+    </footer>
+
+    <script src="js/api.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

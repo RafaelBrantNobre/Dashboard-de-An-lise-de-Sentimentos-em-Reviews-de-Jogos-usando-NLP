@@ -1,0 +1,6 @@
+{
+  "command": "app.main:app --reload  ",
+  "serverUrl": "http://127.0.0.1:8000/docs",
+  "authenticateProxy": false,
+  "commitMode": "commits"
+}
