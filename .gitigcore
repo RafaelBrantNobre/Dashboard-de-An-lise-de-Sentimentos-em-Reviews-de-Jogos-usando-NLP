@@ -17,12 +17,10 @@ frontend/node_modules/
 frontend/dist/
 frontend/.vite/
 
-# Sistema operacional / IDE
-.DS_Store
-Thumbs.db
+# IDE
 .vscode/
-.idea/
 
-# Dados grandes (ajuste conforme quiser versionar ou não)
+
+# Dados grandes
 dataset/
 models/*.pkl
