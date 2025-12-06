@@ -83,6 +83,8 @@ Estrutura geral do projeto (alguns arquivos/diretórios podem variar conforme ev
 
 Observação: os diretórios `.venv/` e `venv/` são ambientes virtuais locais de desenvolvimento e não devem ser versionados (devem ser adicionados ao `.gitignore`).
 
+Observação: o arquivo Database.py teve suas configurações limpadas por questões de privacidade, é fundamental configurar o banco de dados lá.
+
 ---
 
 ## 3. Dataset (Kaggle)
@@ -98,7 +100,8 @@ O dataset utilizado para este projeto é originado do Kaggle, contendo reviews d
 O(s) arquivo(s) correspondente(s) deve(m) ser colocado(s) na pasta `dataset/`. O notebook de treinamento assume que o caminho de leitura aponta para esse diretório.
 
 Por questões de tamanho/licença, o dataset original pode não estar incluído diretamente no repositório público.
-
+Link do dataset:
+https://www.kaggle.com/datasets/nikdavis/steam-store-games?select=steam_media_data.csv
 ---
 
 ## 4. Notebook e treinamento dos modelos
